@@ -1,6 +1,7 @@
 import cv2 
 import numpy
 vid = cv2.VideoCapture(2)
+
 while(1):
     ret,frame = vid.read()
     gray = cv2.cvtColor(frame,cv2.COLOR_RGB2GRAY)

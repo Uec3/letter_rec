@@ -38,10 +38,12 @@ while(1):
                 y_point = rl_countur[1][i] * (w) + y 
                 cv2.circle(frame,(int(rl_countur[0][i] * (h) + x), int(rl_countur[1][i] * (w) + y)),3,(255,255,0),3)
             if d == 'w':
-                f = open('tst.txt', 'w')
+                f = open('tst.txt','w')
                 for i in range(len(contur_poly[i_max])):
                     x_point = rl_countur[0][i]
                     y_point = rl_countur[1][i]
+                    # if( f.readable()):
+                    # print(f.readable())
                     f.write(str(x_point) + '\t' + str(y_point) + '\n')
                 f.close()
     except IndexError:
