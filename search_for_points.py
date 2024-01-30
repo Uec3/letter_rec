@@ -24,13 +24,8 @@ while(1):
         # print(len(contur_poly[i_max]))
         # cv2.drawContours(frame, contur_poly,-1,(0,0,255),2)
         if( x != 0 and y != 0):
-            # cv2.line(frame,(x-5,y),(x+5,y),(255,0,0),3)
-            # cv2.line(frame,(x,y-5),(x,y+5),(255,0,0),3)
-            # cv2.drawContours(frame,contur_poly,-1,(0,0,255),3)
             cv2.rectangle(frame,(x,y),(x+h,y+w),(255,0,0),3)
             d = input()
-            # print(len(contur_poly[i_max]))
-            # print(len(rl_countur[0]), len(rl_countur[1]))
             for i in range(len(rl_countur[0])):
                 rl_countur[0][i] = (contur_poly[i_max][i][0][0] - x) / (h)
                 rl_countur[1][i] = (contur_poly[i_max][i][0][1] - y) / (w)
@@ -42,8 +37,6 @@ while(1):
                 for i in range(len(contur_poly[i_max])):
                     x_point = rl_countur[0][i]
                     y_point = rl_countur[1][i]
-                    # if( f.readable()):
-                    # print(f.readable())
                     f.write(str(x_point) + '\t' + str(y_point) + '\n')
                 f.close()
     except IndexError:
