@@ -7,7 +7,11 @@ vid = cv2.VideoCapture(2)
 while(1):
     ret,frame = vid.read()
     gray = cv2.cvtColor(frame,cv2.COLOR_RGB2GRAY)
-    canny = cv2.Canny(gray,250,255)
+    
+    # canny = cv2.Canny(gray,250,255)
+    
+    canny = cv2.inRange(frame,(36,0,0),(172,110,82))
+    
     contur,hierarchy = cv2.findContours(canny,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
     contur_poly = [None]*len(contur)
     i_max = 0
@@ -18,11 +22,8 @@ while(1):
             max_area = cv2.contourArea(contur_poly[i])
             i_max = i
     try:
-        # cv2.drawContours(frame,contur_poly,-1,(255,0,0),5)
         rl_countur = numpy.ndarray(shape=(2,len(contur_poly[i_max])), dtype= float, )
         x,y,h,w= cv2.boundingRect(contur_poly[i_max])
-        # print(len(contur_poly[i_max]))
-        # cv2.drawContours(frame, contur_poly,-1,(0,0,255),2)
         if( x != 0 and y != 0):
             cv2.rectangle(frame,(x,y),(x+h,y+w),(255,0,0),3)
             d = input()
@@ -32,8 +33,9 @@ while(1):
                 x_point = rl_countur[0][i] * (h) + x 
                 y_point = rl_countur[1][i] * (w) + y 
                 cv2.circle(frame,(int(rl_countur[0][i] * (h) + x), int(rl_countur[1][i] * (w) + y)),3,(255,255,0),3)
-            if d == 'w':
-                f = open('tst.txt','w')
+            if (len (d) > 0 and ord(d) > 96 and ord(d) < 123):
+                f = open('dict.txt','a')
+                f.write(d + '\n')
                 for i in range(len(contur_poly[i_max])):
                     x_point = rl_countur[0][i]
                     y_point = rl_countur[1][i]
